@@ -1,0 +1,12 @@
+' Päivälukitus rivi
+
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+'Pakkaamon kirjanpito
+    If Range("E" & Selection.Row).Value <> Date Then
+        ActiveSheet.Protect Password:="111111"
+        MsgBox "VIESTI JONKA HALUT NÄYTTÄÄ", vbInformation, "VIESTIN OTSIKKO"
+    ElseIf Range("E" & Selection.Row).Value = Date Then
+        ActiveSheet.Unprotect Password:="111111"
+        ActiveSheet.EnableSelection = xlNoRestrictions
+    End If
+End Sub
