@@ -23,3 +23,27 @@ Private Sub Worksheet_SelectionChange(ByVal Target As Range)
         ActiveSheet.EnableSelection = xlNoRestrictions
     End If
 End Sub
+
+
+
+Sub CleanTrimCells_Evaluate()
+'PURPOSE: A Fast way to Clean/Trim cell values in user selection
+'AUTHOR: Armando Montes
+'SOURCE: www.TheSpreadsheetGuru.com/the-code-vault
+
+Dim rng As Range
+Dim Area As Range
+
+'Weed out any formulas from selection
+  If Selection.Cells.Count = 1 Then
+    Set rng = Selection
+  Else
+    Set rng = Selection.SpecialCells(xlCellTypeConstants)
+  End If
+
+'Trim and Clean cell values
+  For Each Area In rng.Areas
+    Area.Value = Evaluate("IF(ROW(" & Area.Address & "),CLEAN(TRIM(" & Area.Address & ")))")
+  Next Area
+  
+End Sub
